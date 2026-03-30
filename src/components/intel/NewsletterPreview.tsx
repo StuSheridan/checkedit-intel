@@ -93,7 +93,7 @@ export default function NewsletterPreview({ issueData, selectedSector }: Newslet
       <div id="intel-newsletter-output" className="max-w-3xl mx-auto space-y-8">
         {/* Newsletter header */}
         <div className="text-center space-y-2 py-6 border-b border-grey-200">
-          <h2 className="text-2xl font-bold text-brand-title-text">PolicyPulse by Checkedit</h2>
+          <h2 className="text-2xl font-bold text-brand-title-text">Checkedit Intel</h2>
           <p className="text-sm text-gray-500">
             {issueData.meta.generated_at} · Week {issueData.meta.week_number}, 2026
           </p>

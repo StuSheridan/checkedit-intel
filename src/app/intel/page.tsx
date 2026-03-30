@@ -7,9 +7,9 @@ export default function IntelPage() {
   return (
     <div className="mx-auto space-y-6">
       <div className="mb-6">
-        <h1 className="text-3xl font-semibold text-brand-title-text my-2">Intel</h1>
+        <h1 className="text-3xl font-semibold text-brand-title-text my-2">Checkedit Intel</h1>
         <p className="text-sm text-brand-body-text">
-          Your compliance intelligence centre — powered by PolicyPulse.
+          Your compliance intelligence centre — powered by Checkedit.
         </p>
       </div>
 
