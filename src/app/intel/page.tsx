@@ -13,10 +13,10 @@ export default function IntelPage() {
         </p>
       </div>
 
+      <GenerateIntel />
       <MonthlyInsight />
       <ComplianceProfile />
       <PlatformIntelligence />
-      <GenerateIntel />
     </div>
   );
 }
