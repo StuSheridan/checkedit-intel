@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Zap, Lock, Trophy, ChevronDown } from 'lucide-react';
 import MicroUnlockTrack from './MicroUnlockTrack';
 
@@ -29,47 +29,17 @@ function NodeIcon({ state, isFuture }: { state: string; isFuture?: boolean }) {
 }
 
 function circleClass(state: string, isFuture?: boolean): string {
-  if (state === 'active') return 'w-14 h-14 rounded-full bg-brand-primary flex items-center justify-center ring-4 ring-brand-primary/20 animate-pulse cursor-pointer flex-shrink-0';
-  if (isFuture) return 'w-10 h-10 rounded-full bg-amber-50 border-2 border-amber-200 flex items-center justify-center flex-shrink-0';
-  if (state === 'teased') return 'w-10 h-10 rounded-full bg-grey-100 border-2 border-grey-200 flex items-center justify-center flex-shrink-0';
-  return 'w-10 h-10 rounded-full bg-grey-100 border-2 border-grey-200 flex items-center justify-center opacity-40 flex-shrink-0';
+  const base = 'rounded-full flex items-center justify-center mx-auto';
+  if (state === 'active') return `w-14 h-14 bg-brand-primary ring-4 ring-brand-primary/20 animate-pulse cursor-pointer ${base}`;
+  if (isFuture) return `w-10 h-10 bg-amber-50 border-2 border-amber-200 ${base}`;
+  if (state === 'teased') return `w-10 h-10 bg-grey-100 border-2 border-grey-200 ${base}`;
+  return `w-10 h-10 bg-grey-100 border-2 border-grey-200 opacity-40 ${base}`;
 }
 
 function lineColor(index: number): string {
   if (index < 1) return 'rgb(59 130 246)';
   if (index < 3) return 'rgb(147 197 253)';
   return 'rgb(229 231 235)';
-}
-
-function statusLine(month: TimelineMonth, expandedMonth: number | null) {
-  if (month.state === 'active') {
-    return (
-      <span className="text-xs text-brand-primary inline-flex items-center gap-0.5">
-        Active
-        <ChevronDown
-          className={`w-3 h-3 transition-transform duration-200 ${
-            expandedMonth === month.month ? 'rotate-180' : ''
-          }`}
-        />
-      </span>
-    );
-  }
-  if (month.state === 'teased') {
-    return (
-      <span className="text-xs text-brand-body-text">
-        ~{month.month - 1} week{month.month - 1 !== 1 ? 's' : ''} away
-      </span>
-    );
-  }
-  if (month.isFuture) {
-    return <span className="text-xs text-amber-600">Unlocks at month 6</span>;
-  }
-  // locked
-  return (
-    <span className="text-xs text-grey-300">
-      ~month {month.month}
-    </span>
-  );
 }
 
 export default function UnlockTimeline() {
@@ -86,51 +56,65 @@ export default function UnlockTimeline() {
       </div>
 
       <div className="overflow-x-auto pb-2">
-        <div className="w-fit">
-          {/* ROW 1 — Circles and connecting lines */}
-          <div className="flex items-center">
+        <div style={{ display: 'table', width: '100%', minWidth: 560 }}>
+          {/* Circle row */}
+          <div style={{ display: 'table-row' }}>
             {TIMELINE_MONTHS.map((month, index) => (
-              <div key={month.month} className="flex items-center">
-                <div
-                  className={circleClass(month.state, month.isFuture)}
-                  onClick={month.state === 'active' ? () => handleToggle(month.month) : undefined}
-                  title={month.state !== 'active' ? `${month.name} — ${month.state === 'teased' ? 'coming soon' : 'locked'}` : undefined}
-                >
-                  <NodeIcon state={month.state} isFuture={month.isFuture} />
+              <React.Fragment key={month.month}>
+                <div style={{ display: 'table-cell', textAlign: 'center', verticalAlign: 'middle', paddingBottom: 4 }}>
+                  <div
+                    className={circleClass(month.state, month.isFuture)}
+                    onClick={month.state === 'active' ? () => handleToggle(month.month) : undefined}
+                    title={month.state !== 'active' ? `${month.name} — ${month.state === 'teased' ? 'coming soon' : 'locked'}` : undefined}
+                  >
+                    <NodeIcon state={month.state} isFuture={month.isFuture} />
+                  </div>
                 </div>
                 {index < TIMELINE_MONTHS.length - 1 && (
-                  <div
-                    className={`h-0.5 rounded-full flex-shrink-0 mx-1 ${index < 1 ? 'w-12 lg:w-16' : 'w-10 lg:w-14'}`}
-                    style={{ background: lineColor(index) }}
-                  />
+                  <div style={{ display: 'table-cell', verticalAlign: 'middle', paddingBottom: 4 }}>
+                    <div className="h-0.5 w-full rounded-full" style={{ background: lineColor(index) }} />
+                  </div>
                 )}
-              </div>
+              </React.Fragment>
             ))}
           </div>
 
-          {/* ROW 2 — Labels */}
-          <div className="flex items-start mt-2">
+          {/* Label row */}
+          <div style={{ display: 'table-row' }}>
             {TIMELINE_MONTHS.map((month, index) => (
-              <div
-                key={month.month}
-                className={`text-center flex-shrink-0 ${
-                  month.state === 'active'
-                    ? 'min-w-[80px] w-[80px]'
-                    : 'min-w-[72px] w-[72px]'
-                } ${
-                  index < TIMELINE_MONTHS.length - 1
-                    ? index < 1
-                      ? 'mr-[calc(3rem+0.5rem)] lg:mr-[calc(4rem+0.5rem)]'
-                      : 'mr-[calc(2.5rem+0.5rem)] lg:mr-[calc(3.5rem+0.5rem)]'
-                    : ''
-                }`}
-              >
-                <p className="text-xs text-brand-body-text truncate">{month.label}</p>
-                <p className={`text-xs font-semibold truncate ${month.state === 'locked' ? 'text-grey-300' : 'text-brand-title-text'}`}>
-                  {month.name}
-                </p>
-                <div>{statusLine(month, expandedMonth)}</div>
-              </div>
+              <React.Fragment key={month.month}>
+                <div style={{ display: 'table-cell', textAlign: 'center', verticalAlign: 'top', paddingTop: 6 }}>
+                  <p className="text-xs text-brand-body-text">{month.label}</p>
+                  <p className={`text-xs font-semibold mt-0.5 ${month.state === 'locked' ? 'text-grey-300' : 'text-brand-title-text'}`}>
+                    {month.name}
+                  </p>
+                  {month.state === 'active' && (
+                    <button
+                      onClick={() => handleToggle(month.month)}
+                      className="text-xs text-brand-primary inline-flex items-center gap-0.5 mt-0.5 mx-auto"
+                    >
+                      Active
+                      <ChevronDown
+                        className={`w-3 h-3 transition-transform duration-200 ${expandedMonth === month.month ? 'rotate-180' : ''}`}
+                      />
+                    </button>
+                  )}
+                  {month.state === 'teased' && (
+                    <span className="text-xs text-brand-body-text mt-0.5 block">
+                      ~{month.month - 1} week{month.month - 1 !== 1 ? 's' : ''} away
+                    </span>
+                  )}
+                  {month.state === 'locked' && (
+                    <span className="text-xs text-grey-300 mt-0.5 block">~month {month.month}</span>
+                  )}
+                  {month.state === 'future' && (
+                    <span className="text-xs text-amber-600 mt-0.5 block">Unlocks at month 6</span>
+                  )}
+                </div>
+                {index < TIMELINE_MONTHS.length - 1 && (
+                  <div style={{ display: 'table-cell' }} />
+                )}
+              </React.Fragment>
             ))}
           </div>
         </div>
