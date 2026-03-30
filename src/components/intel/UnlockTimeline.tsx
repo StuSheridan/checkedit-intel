@@ -100,7 +100,7 @@ export default function UnlockTimeline() {
                 </div>
                 {index < TIMELINE_MONTHS.length - 1 && (
                   <div
-                    className="h-0.5 w-10 lg:w-14 rounded-full flex-shrink-0 mx-1"
+                    className={`h-0.5 rounded-full flex-shrink-0 mx-1 ${index < 1 ? 'w-12 lg:w-16' : 'w-10 lg:w-14'}`}
                     style={{ background: lineColor(index) }}
                   />
                 )}
@@ -114,13 +114,15 @@ export default function UnlockTimeline() {
               <div
                 key={month.month}
                 className={`text-center flex-shrink-0 ${
+                  month.state === 'active'
+                    ? 'min-w-[80px] w-[80px]'
+                    : 'min-w-[72px] w-[72px]'
+                } ${
                   index < TIMELINE_MONTHS.length - 1
-                    ? month.state === 'active'
-                      ? 'w-14 mr-[calc(2.5rem+0.5rem)] lg:mr-[calc(3.5rem+0.5rem)]'
-                      : 'w-10 mr-[calc(2.5rem+0.5rem)] lg:mr-[calc(3.5rem+0.5rem)]'
-                    : month.state === 'active'
-                      ? 'w-14'
-                      : 'w-10'
+                    ? index < 1
+                      ? 'mr-[calc(3rem+0.5rem)] lg:mr-[calc(4rem+0.5rem)]'
+                      : 'mr-[calc(2.5rem+0.5rem)] lg:mr-[calc(3.5rem+0.5rem)]'
+                    : ''
                 }`}
               >
                 <p className="text-xs text-brand-body-text truncate">{month.label}</p>

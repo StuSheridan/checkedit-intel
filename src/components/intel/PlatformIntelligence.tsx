@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Share2, Lock } from 'lucide-react';
+import { Share2 } from 'lucide-react';
 
 export default function PlatformIntelligence() {
   const [toast, setToast] = useState<string | null>(null);
@@ -36,55 +36,35 @@ export default function PlatformIntelligence() {
         </span>
       </div>
 
-      <div className="relative">
-        {/* Lock overlay */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/60 rounded-xl z-10">
-          <div className="text-center px-6">
-            <div className="w-12 h-12 rounded-full bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center mx-auto mb-3">
-              <Lock className="w-5 h-5 text-brand-primary" />
+      <div className="bg-brand-primary/5 rounded-xl p-6 text-center">
+        <p className="text-5xl font-bold text-brand-primary">312</p>
+        <p className="text-sm text-brand-body-text mt-2">
+          pieces of Australian advertising reviewed on Checkedit
+        </p>
+        <div className="border-t border-grey-200 my-4" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {findings.map((finding) => (
+            <div key={finding} className="flex items-start gap-2 justify-center">
+              <div className="bg-brand-primary w-2 h-2 rounded-full mt-1.5 shrink-0" />
+              <p className="text-sm text-brand-body-text">{finding}</p>
             </div>
-            <p className="text-sm font-semibold text-brand-title-text mb-1">
-              Unlocks at Month 6
-            </p>
-            <p className="text-xs text-brand-body-text">
-              Run Checkedit for 6 months to unlock full platform intelligence.
-            </p>
-          </div>
-        </div>
-
-        {/* Blurred content */}
-        <div className="blur-sm pointer-events-none select-none">
-          <div className="bg-brand-primary/5 rounded-xl p-6 text-center">
-            <p className="text-5xl font-bold text-brand-primary">312</p>
-            <p className="text-sm text-brand-body-text mt-2">
-              pieces of Australian advertising reviewed on Checkedit
-            </p>
-            <div className="border-t border-grey-200 my-4" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 justify-center">
-              {findings.map((finding) => (
-                <div key={finding} className="flex items-start gap-2 justify-center">
-                  <div className="bg-brand-primary w-2 h-2 rounded-full mt-1.5 shrink-0" />
-                  <p className="text-sm text-brand-body-text">{finding}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex justify-center mt-6">
-            <button
-              onClick={handleShare}
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium active:scale-95 border-2 px-4 py-2 border-brand-primary text-brand-primary hover:bg-grey-100 h-11 cursor-pointer transition-colors duration-200"
-            >
-              <Share2 className="w-4 h-4" />
-              Share this insight
-            </button>
-          </div>
-
-          <p className="text-sm text-gray-500 mt-6 text-center">
-            Platform stats update monthly. Next update: 1 May 2026.
-          </p>
+          ))}
         </div>
       </div>
+
+      <div className="flex justify-center">
+        <button
+          onClick={handleShare}
+          className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium active:scale-95 border-2 px-4 py-2 border-brand-primary text-brand-primary hover:bg-grey-100 h-11 cursor-pointer transition-colors duration-200"
+        >
+          <Share2 className="w-4 h-4" />
+          Share this insight
+        </button>
+      </div>
+
+      <p className="text-sm text-gray-500 text-center">
+        Platform stats update monthly. Next update: 1 May 2026.
+      </p>
 
       {toast && (
         <div className="fixed bottom-24 right-4 bg-brand-title-text text-white px-4 py-2 rounded-lg text-sm shadow-lg z-50 transition-all">
