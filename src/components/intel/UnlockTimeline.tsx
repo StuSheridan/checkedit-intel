@@ -181,7 +181,7 @@ export default function UnlockTimeline() {
       </div>
 
       <div className="overflow-x-auto pb-2">
-        <div className="flex items-start gap-0 min-w-max lg:min-w-0 lg:w-full">
+        <div className="flex items-start gap-0 w-fit">
           {TIMELINE_MONTHS.map((month, index) => (
             <TimelineNode
               key={month.month}

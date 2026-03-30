@@ -38,7 +38,7 @@ export default function ComplianceProfile() {
       <UnlockTimeline />
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="bg-white/80 rounded-xl p-4 text-center border border-blue-100">
           <p className="text-xs text-brand-body-text uppercase tracking-wide mb-1">Reports run</p>
           <p className="text-2xl font-bold text-brand-title-text">3</p>
