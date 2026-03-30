@@ -53,6 +53,8 @@ For each item below, return a JSON array of objects with these fields:
 - "sector_tags": array of relevant sector tags
 - "source": the source name
 
+UNDER REVIEW: Only classify as under_review if the item explicitly describes an active consultation paper, proposed code change, or public comment period with a defined closing date. General references to regulatory portals, adjudication pages, or media centres are NOT under_review items — discard them.
+
 DISCARD RULE: If an item's body_text contains fewer than 50 words of substantive content, or appears to be a navigation element, portal page, search function, or site menu item rather than actual regulatory content, return section: "discard" for that item. Do not attempt to summarise navigation or portal items.
 
 Return ONLY valid JSON array, no markdown fences.
