@@ -9,25 +9,28 @@ import GenerateIntel from '@/components/intel/GenerateIntel';
 import ProgressStrip from '@/components/intel/ProgressStrip';
 
 const tabs = [
-  { id: 'generate' as const, label: 'Generate Intel', icon: Zap },
   { id: 'journey' as const, label: 'My Journey', icon: Trophy },
-  { id: 'platform' as const, label: 'Platform', icon: BarChart2 },
+  { id: 'generate' as const, label: 'Generate Intel', icon: Zap },
+  { id: 'platform' as const, label: 'Platform Insights', icon: BarChart2 },
 ];
 
 export default function IntelPage() {
-  const [activeTab, setActiveTab] = useState<'generate' | 'journey' | 'platform'>('generate');
+  const [activeTab, setActiveTab] = useState<'journey' | 'generate' | 'platform'>('journey');
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 px-4 sm:px-6">
-      <div className="mb-6">
+    <div className="mx-auto max-w-6xl space-y-4 px-4 sm:px-6">
+      <div className="mb-2">
         <h1 className="text-3xl font-semibold text-brand-title-text my-2">Checkedit Intel</h1>
         <p className="text-sm text-brand-body-text">
           Your compliance intelligence centre — powered by Checkedit.
         </p>
       </div>
 
+      {/* Progress strip — always visible */}
+      <ProgressStrip />
+
       {/* Tab bar */}
-      <div className="flex gap-1 bg-grey-100 p-1 rounded-xl mb-6">
+      <div className="flex gap-1 bg-grey-100 p-1 rounded-xl">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -45,17 +48,16 @@ export default function IntelPage() {
       </div>
 
       {/* Tab content */}
-      {activeTab === 'generate' && (
-        <div className="space-y-6">
-          <GenerateIntel />
-          <ProgressStrip />
-        </div>
-      )}
-
       {activeTab === 'journey' && (
         <div className="space-y-6">
           <MonthlyInsight />
           <ComplianceProfile />
+        </div>
+      )}
+
+      {activeTab === 'generate' && (
+        <div className="space-y-6">
+          <GenerateIntel />
         </div>
       )}
 
