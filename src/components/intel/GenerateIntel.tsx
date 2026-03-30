@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { Zap, Loader2 } from 'lucide-react';
+import { Zap, Loader2, Radio, FileText, Target } from 'lucide-react';
 import NewsletterPreview from './NewsletterPreview';
 import ReggieChat from './ReggieChat';
 import { IssueData } from '@/lib/types';
@@ -87,6 +87,42 @@ export default function GenerateIntel() {
         <p className="text-sm text-brand-body-text">
           Select an industry to generate a live compliance briefing.
         </p>
+
+        {/* Value proposition */}
+        <div className="bg-brand-primary/5 rounded-xl p-5 border border-brand-primary/10">
+          <p className="text-sm text-brand-body-text mb-4">
+            Generate a live compliance briefing for your industry — powered by real-time data from Ad Standards, ACCC, ASIC, TGA, and ABAC. Each briefing includes regulatory updates, recent judgements, consultations under review, and a Checkedit compliance check on a real campaign.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="flex items-start gap-2">
+              <div className="w-7 h-7 rounded-lg bg-brand-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Radio className="w-4 h-4 text-brand-primary" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-brand-title-text">Live regulatory data</p>
+                <p className="text-xs text-brand-body-text">Scraped fresh from 5 AU regulatory bodies</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <div className="w-7 h-7 rounded-lg bg-brand-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <FileText className="w-4 h-4 text-brand-primary" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-brand-title-text">Plain-English summaries</p>
+                <p className="text-xs text-brand-body-text">AI translates regulatory language for marketers</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-2">
+              <div className="w-7 h-7 rounded-lg bg-brand-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Target className="w-4 h-4 text-brand-primary" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-brand-title-text">Sector-specific</p>
+                <p className="text-xs text-brand-body-text">Filtered to your industry — no irrelevant noise</p>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {sectors.map((sector) => (

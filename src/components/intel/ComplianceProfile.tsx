@@ -27,7 +27,7 @@ export default function ComplianceProfile() {
       <div className="flex items-start justify-between">
         <div>
           <h2 className="text-base font-medium text-brand-title-text">Your Compliance Profile</h2>
-          <p className="text-sm text-brand-body-text mt-1">Track your compliance journey and unlock intelligence as you grow.</p>
+          <p className="text-sm text-brand-body-text mt-1">The more you use Checkedit, the smarter your intelligence gets. Regular use unlocks personalised insights built from your reports — plus platform-wide trends from all Checkedit users. All data is anonymised. Your reports and brand information are never shared.</p>
         </div>
         <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-brand-primary/10 text-brand-primary border border-brand-primary/20 flex-shrink-0">
           Month 1 of 12
