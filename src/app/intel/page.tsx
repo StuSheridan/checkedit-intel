@@ -2,6 +2,7 @@ import MonthlyInsight from '@/components/intel/MonthlyInsight';
 import ComplianceProfile from '@/components/intel/ComplianceProfile';
 import PlatformIntelligence from '@/components/intel/PlatformIntelligence';
 import GenerateIntel from '@/components/intel/GenerateIntel';
+import ProgressStrip from '@/components/intel/ProgressStrip';
 
 export default function IntelPage() {
   return (
@@ -14,6 +15,7 @@ export default function IntelPage() {
       </div>
 
       <GenerateIntel />
+      <ProgressStrip />
       <MonthlyInsight />
       <ComplianceProfile />
       <PlatformIntelligence />

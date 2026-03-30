@@ -15,12 +15,14 @@
  * No other changes needed — all unlock logic is driven by these two values.
  */
 
-import MicroUnlockTrack from './MicroUnlockTrack';
 import UnlockTimeline from './UnlockTimeline';
 
 export default function ComplianceProfile() {
   return (
-    <div className="flex flex-col gap-6 border p-6 bg-brand-white border-grey-200 shadow-sm rounded-xl transition-all duration-500">
+    <div
+      className="flex flex-col gap-6 border p-6 rounded-xl transition-all duration-500"
+      style={{ backgroundColor: 'rgb(239 246 255)', borderColor: 'rgb(219 234 254)' }}
+    >
       {/* Header row */}
       <div className="flex items-start justify-between">
         <div>
@@ -32,27 +34,24 @@ export default function ComplianceProfile() {
         </span>
       </div>
 
+      {/* 12-month timeline (with expandable Month 1 micro-unlocks) */}
+      <UnlockTimeline />
+
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="bg-grey-50 rounded-xl p-4 text-center border border-grey-200">
+        <div className="bg-white/80 rounded-xl p-4 text-center border border-blue-100">
           <p className="text-xs text-brand-body-text uppercase tracking-wide mb-1">Reports run</p>
           <p className="text-2xl font-bold text-brand-title-text">3</p>
         </div>
-        <div className="bg-grey-50 rounded-xl p-4 text-center border border-grey-200">
+        <div className="bg-white/80 rounded-xl p-4 text-center border border-blue-100">
           <p className="text-xs text-brand-body-text uppercase tracking-wide mb-1">Days active</p>
           <p className="text-2xl font-bold text-brand-title-text">4</p>
         </div>
-        <div className="bg-grey-50 rounded-xl p-4 text-center border border-grey-200">
+        <div className="bg-white/80 rounded-xl p-4 text-center border border-blue-100">
           <p className="text-xs text-brand-body-text uppercase tracking-wide mb-1">Member since</p>
           <p className="text-sm font-semibold text-brand-title-text">March 2026</p>
         </div>
       </div>
-
-      {/* Month 1 micro-unlock track */}
-      <MicroUnlockTrack />
-
-      {/* 12-month timeline */}
-      <UnlockTimeline />
     </div>
   );
 }
