@@ -5,6 +5,7 @@ import { Zap, Loader2 } from 'lucide-react';
 import NewsletterPreview from './NewsletterPreview';
 import ReggieChat from './ReggieChat';
 import { IssueData } from '@/lib/types';
+import { DEMO_DATA } from '@/lib/demoData';
 
 const sectors = [
   'Alcohol',
@@ -28,12 +29,21 @@ export default function GenerateIntel() {
   const [loadingStage, setLoadingStage] = useState('');
   const [issueData, setIssueData] = useState<IssueData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [isDemo, setIsDemo] = useState(false);
+
+  const handleDemo = (sector: string) => {
+    setSelectedSector(sector);
+    setIssueData(DEMO_DATA[sector]);
+    setIsDemo(true);
+    setError(null);
+  };
 
   const handleGenerate = useCallback(async () => {
     if (!selectedSector) return;
     setLoading(true);
     setIssueData(null);
     setError(null);
+    setIsDemo(false);
 
     let i = 0;
     const interval = setInterval(() => {
@@ -58,7 +68,6 @@ export default function GenerateIntel() {
     }
   }, [selectedSector]);
 
-  // Reset loading stage text
   useEffect(() => {
     if (loading) {
       setLoadingStage(stages[0]);
@@ -75,17 +84,30 @@ export default function GenerateIntel() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {sectors.map((sector) => (
-            <button
+            <div
               key={sector}
-              onClick={() => setSelectedSector(sector)}
-              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer ${
+              className={`flex items-center justify-between px-4 py-2 rounded-md text-sm font-medium transition-colors duration-200 cursor-pointer ${
                 selectedSector === sector
                   ? 'bg-brand-primary text-white'
                   : 'bg-brand-white text-brand-body-text border border-grey-200 hover:bg-grey-100'
               }`}
+              onClick={() => setSelectedSector(sector)}
             >
-              {sector}
-            </button>
+              <span>{sector}</span>
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDemo(sector);
+                }}
+                className={`ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium border cursor-pointer transition-colors ${
+                  selectedSector === sector
+                    ? 'bg-white/20 text-white border-white/30 hover:bg-white/30'
+                    : 'bg-brand-primary/10 text-brand-primary border-brand-primary/20 hover:bg-brand-primary/20'
+                }`}
+              >
+                Demo
+              </span>
+            </div>
           ))}
         </div>
 
@@ -124,6 +146,11 @@ export default function GenerateIntel() {
 
       {issueData && (
         <>
+          {isDemo && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm text-amber-800 flex items-center gap-2">
+              <span className="font-medium">Demo mode</span> — showing example data for {selectedSector}. Click Generate Intel for live data.
+            </div>
+          )}
           <NewsletterPreview issueData={issueData} selectedSector={selectedSector || ''} />
           <ReggieChat />
         </>
