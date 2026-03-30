@@ -6,7 +6,7 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Checkedit.ai — All rights reserved.
         </p>
         <p className="text-sm text-gray-500">
-          Powered by PolicyPulse
+          Powered by <a href="https://hiaitus.ai" target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline">Hiaitus.ai</a>
         </p>
       </div>
     </footer>
