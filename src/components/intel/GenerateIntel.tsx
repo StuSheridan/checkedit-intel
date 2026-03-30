@@ -31,6 +31,12 @@ export default function GenerateIntel() {
   const [error, setError] = useState<string | null>(null);
   const [isDemo, setIsDemo] = useState(false);
 
+  const handleReset = () => {
+    setIssueData(null);
+    setIsDemo(false);
+    setSelectedSector(null);
+  };
+
   const handleDemo = (sector: string) => {
     setSelectedSector(sector);
     setIssueData(DEMO_DATA[sector]);
@@ -147,8 +153,17 @@ export default function GenerateIntel() {
       {issueData && (
         <>
           {isDemo && (
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm text-amber-800 flex items-center gap-2">
-              <span className="font-medium">Demo mode</span> — showing example data for {selectedSector}. Click Generate Intel for live data.
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-sm text-amber-800 flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="font-medium">Demo mode</span>
+                <span>— showing example data for {selectedSector}. Click Generate Intel for live data.</span>
+              </div>
+              <button
+                onClick={handleReset}
+                className="text-xs font-medium text-amber-800 underline hover:text-amber-900 transition-colors flex-shrink-0"
+              >
+                Reset
+              </button>
             </div>
           )}
           <NewsletterPreview issueData={issueData} selectedSector={selectedSector || ''} />
