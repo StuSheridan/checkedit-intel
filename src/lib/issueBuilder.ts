@@ -11,10 +11,11 @@ export async function buildIssue(
   let totalCalls = callsSoFar;
   let capped = callsSoFar >= TOTAL_CAP;
 
-  // Sort items into sections
-  const regulatory_updates = summarised.filter((i) => i.section === 'regulatory_update');
-  const judgements = summarised.filter((i) => i.section === 'judgement');
-  const under_review = summarised.filter((i) => i.section === 'under_review');
+  // Filter out discarded items, then sort into sections
+  const kept = summarised.filter((i) => i.section !== 'discard');
+  const regulatory_updates = kept.filter((i) => i.section === 'regulatory_update');
+  const judgements = kept.filter((i) => i.section === 'judgement');
+  const under_review = kept.filter((i) => i.section === 'under_review');
 
   // Generate compliance tip and sector spotlight if we have API budget
   let compliance_tip = 'Review all advertising claims for substantiation before publication. The regulatory environment is tightening — proactive compliance is cheaper than reactive correction.';

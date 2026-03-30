@@ -8,7 +8,7 @@ export interface ScrapedItem {
 
 export interface SummarisedItem {
   original_url: string;
-  section: 'regulatory_update' | 'judgement' | 'under_review';
+  section: 'regulatory_update' | 'judgement' | 'under_review' | 'discard';
   headline: string;
   summary: string;
   action: string;
